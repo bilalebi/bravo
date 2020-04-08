@@ -19,12 +19,12 @@ class CoverageHandler(object):
     def get_coverage_for_intervalset(self, intervalset):
         st = time.time()
         try: single_chrom_coverage_handler = self._single_chrom_coverage_handlers[intervalset.chrom]
-        except KeyError: print 'Warning: No coverage for chrom', intervalset.chrom; return []
+        except KeyError: print('Warning: No coverage for chrom', intervalset.chrom); return []
         coverage = []
         intervalset_length = intervalset.get_length()
         for pair in intervalset.to_obj()['list_of_pairs']:
             coverage.extend(single_chrom_coverage_handler.get_coverage_for_range(pair[0], pair[1], length=intervalset_length))
-        print '## COVERAGE: spent {:.3f} seconds tabixing {} coverage bins'.format(time.time()-st, len(coverage))
+        print('## COVERAGE: spent {:.3f} seconds tabixing {} coverage bins'.format(time.time()-st, len(coverage)))
         return coverage
 
 class SingleChromCoverageHandler(object):

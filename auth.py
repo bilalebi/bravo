@@ -1,5 +1,9 @@
 import json
-import urllib2
+
+try:
+    import urllib2
+except:
+    import urllib.request, urllib.error
 
 import requests
 from flask import redirect, request, url_for

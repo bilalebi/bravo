@@ -44,11 +44,11 @@ install_google_cloud_sdk() {
 }
 
 setup_bravo_env() {
-    mkdir -p /data/cache/igv_cache
-    mkdir -p /data/cram
-    mkdir -p /data/genomes
-    mkdir -p /data/coverage
-    mkdir -p /data/import_vcf
+    mkdir -p ~/data/cache/igv_cache
+    mkdir -p ~/data/cram
+    mkdir -p ~/data/genomes
+    mkdir -p ~/data/coverage
+    mkdir -p ~/data/import_vcf
 }
 
 install_docker_ce

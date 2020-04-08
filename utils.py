@@ -191,7 +191,7 @@ class defaultdict_that_passes_key_to_default_factory(dict):
 
 def indent_pprint(obj):
     import pprint
-    print '\n'.join('####'+line for line in pprint.pformat(obj).split('\n'))
+    print('\n'.join('####'+line for line in pprint.pformat(obj).split('\n')))
 def mkdict(*dicts, **ret):
     for d in dicts: ret.update({k:True for k in d} if isinstance(d, (set,list)) else d)
     return ret
@@ -210,7 +210,7 @@ def histogram_from_counter(counter, num_bins=10, bin_range=None):
     bin_width = float(bin_range[1] - bin_range[0]) / num_bins
     if bin_width == 0:
         only_key = counter.keys()[0]
-        print 'Warning: metric always had the value {}'.format(counter.keys())
+        print('Warning: metric always had the value {}'.format(counter.keys()))
         return {'left_edges': [only_key-1, only_key, only_key+1], 'mids': [only_key-1, only_key, only_key+1], 'counts': [0, counter.values()[0], 0]}
     bin_left_edges = [bin_range[0] + bin_width * i for i in range(num_bins)]
     bin_counts = [0]*num_bins
@@ -219,7 +219,7 @@ def histogram_from_counter(counter, num_bins=10, bin_range=None):
         try:
             bin_i = int(floor(bin_i))
         except:
-            print 'error on', bin_i, key, bin_range[0], bin_range[1], bin_width
+            print('error on', bin_i, key, bin_range[0], bin_range[1], bin_width)
             raise
         bin_i = clamp(bin_i, min_value=0, max_value=num_bins-1)
         bin_counts[bin_i] += count
