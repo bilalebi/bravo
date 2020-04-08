@@ -12,3 +12,5 @@ instance/
 misc/
 static/.DS_Store
 static/tablesorter-master
+env/
+data/DataPrep/cget
