@@ -262,12 +262,12 @@ def _load_percentiles_from_vcf(vcf):
                 n_matched += res.matched_count
                 n_modified += res.modified_count
                 requests = []
-                print 'VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified) 
+                print('VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified)) 
         if len(requests) > 0:
             res = db.variants.bulk_write(requests, ordered = False)
             n_matched += res.matched_count
             n_modified += res.modified_count
-            print 'Finished. VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified)
+            print('Finished. VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified))
 
 
 def load_percentiles(variant_files, threads):

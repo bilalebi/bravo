@@ -9,7 +9,7 @@ services:
     volumes:
      - ~/data:/data
   mongo:
-    image: "mongo:3.4"
+    image: "mongo:4.0.17"
     volumes:
      - ~/data/mongo/db:/data/db
     networks:

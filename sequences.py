@@ -42,7 +42,7 @@ class SequencesClient(object):
 
     @staticmethod
     def get_random_filename(length):
-        return ''.join(random.choice(string.ascii_letters + string.digits) for x in xrange(length))
+        return ''.join(random.choice(string.ascii_letters + string.digits) for x in range(length))
 
     @staticmethod
     def create_cache_collection_and_index(db, collection_name):
