@@ -108,8 +108,8 @@ def get_variants_from_sites_vcf(vcf, chrom, start_bp, end_bp, histograms = True)
                     variant['cadd_raw'] = record.info['CADD_RAW'][i] if 'CADD_RAW' in record.info else None
                     variant['cadd_phred'] = record.info['CADD_PHRED'][i] if 'CADD_PHRED' in record.info else None
                     if histograms:
-                        variant['genotype_depths'] = map(lambda x, y: zip(x, map(int, y.split('|'))), [dp_hist_mids, dp_hist_r_mids], [record.info['DP_HIST'], record.info['DP_HIST_R'][i + 1]])
-                        variant['genotype_qualities'] = map(lambda x, y: zip(x, map(int, y.split('|'))), [gq_hist_mids, gq_hist_r_mids], [record.info['GQ_HIST'], record.info['GQ_HIST_R'][i + 1]])
+                        variant['genotype_depths'] = list(map(lambda x, y: list(zip(x, map(int, y.split('|')))), [dp_hist_mids, dp_hist_r_mids], [record.info['DP_HIST'], record.info['DP_HIST_R'][i + 1]]))
+                        variant['genotype_qualities'] = list(map(lambda x, y: list(zip(x, map(int, y.split('|')))), [gq_hist_mids, gq_hist_r_mids], [record.info['GQ_HIST'], record.info['GQ_HIST_R'][i + 1]]))
                     variant['vep_annotations'] = allele_annotations
                     clean_annotation_consequences_for_variant(variant)
                     pop_afs = get_pop_afs(variant)
@@ -178,7 +178,7 @@ def _annotation_severity(annotation):
     return rv
 def _get_hgvs(annotation):
     # ExAC code did fancy things, but this feels okay to me.
-    from urllib import unquote
+    from urllib.parse import unquote
     hgvsp = unquote(annotation['HGVSp']).split(':',1)[-1]
     hgvsc = unquote(annotation['HGVSc']).split(':',1)[-1]
     if hgvsp and '=' not in hgvsp: return hgvsp
