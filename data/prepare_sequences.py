@@ -123,7 +123,7 @@ if __name__ == '__main__':
 
         i = 0
         with pysam.AlignmentFile(args.outFile, 'wc', header = header) as ocram:
-            for sample, sample_variants in samples.iteritems():
+            for sample, sample_variants in samples.items():
                 process_sample(crams[sample], sample_variants, ocram)
                 i += 1
                 if i % 100 == 0:

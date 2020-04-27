@@ -234,7 +234,7 @@ def variant_page(variant_id):
         if 'pop_afs' in variant:
             variant['pop_afs'] = {pop_names.get(k, k): v for k, v in variant['pop_afs'].items()}
         else:
-            variant['pop_afs'] = { x: None  for x in pop_names.itervalues() }
+            variant['pop_afs'] = { x: None  for x in pop_names.values() }
         variant['pop_afs'][app.config['DATASET_NAME']] = variant['allele_freq']
 
         consequence_drilldown = ConsequenceDrilldown.from_variant(variant)

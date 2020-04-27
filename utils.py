@@ -172,10 +172,10 @@ class ConsequenceDrilldown(object):
         """Returns something like ("APOL1", ["Gly70Ter", "Gly88Ter"])"""
         if not consequences_drilldown:
             return None, []
-        gene_drilldowns_for_top_csq = consequences_drilldown.values()[0]
+        gene_drilldowns_for_top_csq = list(consequences_drilldown.values())[0]
         if len(gene_drilldowns_for_top_csq) != 1: # we need exactly one gene
             return None, []
-        annotation_drilldowns_for_top_csq = gene_drilldowns_for_top_csq.values()[0]
+        annotation_drilldowns_for_top_csq = list(gene_drilldowns_for_top_csq.values())[0]
         gene_symbol_for_top_csq = annotation_drilldowns_for_top_csq[0].get('SYMBOL') or gene_drilldowns_for_top_csq.keys()[0]
         HGVSs_for_top_csq = sorted({ann['HGVS'] for ann in annotation_drilldowns_for_top_csq if ann.get('HGVS')})
         return gene_symbol_for_top_csq, sorted(HGVSs_for_top_csq)
@@ -214,7 +214,7 @@ def histogram_from_counter(counter, num_bins=10, bin_range=None):
         return {'left_edges': [only_key-1, only_key, only_key+1], 'mids': [only_key-1, only_key, only_key+1], 'counts': [0, counter.values()[0], 0]}
     bin_left_edges = [bin_range[0] + bin_width * i for i in range(num_bins)]
     bin_counts = [0]*num_bins
-    for key, count in counter.iteritems():
+    for key, count in counter.items():
         bin_i = (key - bin_range[0]) / bin_width
         try:
             bin_i = int(floor(bin_i))

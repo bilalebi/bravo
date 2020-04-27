@@ -374,7 +374,7 @@ def build_region_query(args, xstart, xend):
 def build_link_next(args, last_object_id, last_variant, mongo_sort):
     if last_object_id is None or last_variant is None:
         return None
-    link_next = request.base_url + '?' + '&'.join(('{}={}'.format(arg, value) for arg, value in request.args.iteritems(True) if arg != 'last'))
+    link_next = request.base_url + '?' + '&'.join(('{}={}'.format(arg, value) for arg, value in request.args.items(True) if arg != 'last'))
     if ('sort' not in args or len(args['sort']) == 0) and mongo_sort:
         link_next += '&sort=' +  ','.join(('{}:{}'.format('pos' if key == 'xpos' else key, 'asc' if sort_direction == ASCENDING else 'desc') for key, sort_direction in mongo_sort))
     if mongo_sort:

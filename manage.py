@@ -292,7 +292,7 @@ def _update_collection(args, collection, reader):
     for document in reader(file, chrom, None, None):
         requests.append(pymongo.operations.UpdateOne(
             {'xpos': document['xpos'], 'ref': document['ref'], 'alt': document['alt']},
-            {'$set': {k: v for k, v in document.iteritems() if k not in { 'xpos', 'ref', 'alt' }}},
+            {'$set': {k: v for k, v in document.items() if k not in { 'xpos', 'ref', 'alt' }}},
             upsert = False))
         n_documents += 1
         if n_documents % 100000 == 0:

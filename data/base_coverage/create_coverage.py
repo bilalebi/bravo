@@ -78,7 +78,7 @@ def readDepthChunks(depthFiles, contig, start, end):
    chunks = dict()
    for depthFile in depthFiles:
       chunk = readDepthChunk(depthFile, contig, start, end)
-      for position, depth in chunk.iteritems():
+      for position, depth in chunk.items():
          if position in chunks:
             chunks[position].append(depth)
          else:
@@ -88,7 +88,7 @@ def readDepthChunks(depthFiles, contig, start, end):
 def writeDepthChunks(chunks, chromosome, nDepthFiles):
    if chromosome.startswith('chr'):
        chromosome = chromosome[3:]
-   for position, depths in collections.OrderedDict(sorted(chunks.items())).iteritems():
+   for position, depths in collections.OrderedDict(sorted(chunks.items())).items():
       counts = [0] * len(breaks)
       for depth in depths:
          for i in range(len(breaks) - 1, -1, -1):
