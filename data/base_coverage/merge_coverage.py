@@ -53,7 +53,7 @@ def merge_coverage_files(coverage_files, out_coverage_file):
                chrom = fields[0]
                if chrom != coverage_file['chrom']:
                   raise Exception('Multiple chromosomes detected within {} coverage file!'.format(coverage_file['name']))
-               position = long(fields[1])
+               position = int(fields[1])
 
                if last_position is None or last_position < position:
                   last_position = position

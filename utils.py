@@ -103,7 +103,7 @@ class Xpos:
     @staticmethod
     def to_chrom_pos(xpos):
         pos = xpos % int(1e9)
-        chrom = Xpos.CHROMOSOME_NUMBER_TO_STRING[int(xpos) / int(1e9)]
+        chrom = Xpos.CHROMOSOME_NUMBER_TO_STRING[int(xpos / 1e9)]
         return (chrom, pos)
     @staticmethod
     def to_pos(xpos):

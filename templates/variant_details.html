@@ -2,7 +2,7 @@
     ({{ annotation.HGVS }})<br/>
 {% endif %}
 
-{% if consequence == 'missense_variant' %}
+{% if consequence == 'missense_variant' and annotation.PolyPhen and annotation.SIFT %}
     {% set polyphen = annotation.PolyPhen.split('(')[0] %}
     {% set pp_label = "bg-success" if polyphen == 'benign' else ("bg-warning" if polyphen == 'possibly_damaging' else "bg-danger") %}
     {% set sift = annotation.SIFT.split('(')[0] %}

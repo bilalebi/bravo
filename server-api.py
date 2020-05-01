@@ -291,8 +291,6 @@ def deserialize_query_filter(value, value_type):
    try:
       if value_type == int:
          value = int(value)
-      elif value_type == long:
-         value = long(value)
       elif value_type == float:
          value = float(value)
       elif value_type == str:
@@ -328,8 +326,6 @@ def validate_query(value):
                 key_type = allowed_sort_keys[key]
                 if key_type == int:
                     value['last'][i] = int(value['last'][i])
-                elif key_type == long:
-                    value['last'][i] = long(value['last'][i])
                 elif key_type == float:
                     value['last'][i] = float(value['last'][i])
         except:

@@ -229,9 +229,9 @@ def get_canonical_transcripts(canonical_transcript_file):
 
 
 def get_omim_associations(omim_file):
-    header = omim_file.readline().rstrip('\n').split('\t')
+    header = omim_file.readline().decode().rstrip('\n').split('\t')
     for line in omim_file:
-        fields = line.rstrip('\n').split('\t')
+        fields = line.decode().rstrip('\n').split('\t')
         assert len(header) == len(fields)
         fields = dict(zip(header, fields))
         if not fields['MIM gene accession'] or not fields['MIM gene description']:
@@ -245,14 +245,14 @@ def get_regions_from_gencode_gtf(gtf_file, region_types):
     Returns iter of regions ditcs
     """
     for line in gtf_file:
-        if line.startswith('#'):
+        if line.startswith(b'#'):
             continue
-        fields = line.rstrip('\n').split('\t')
+        fields = line.decode().rstrip('\n').split('\t')
         if fields[2] not in region_types:
             continue
         chrom = fields[0][3:]
-        start = long(fields[3])
-        stop = long(fields[4])
+        start = int(fields[3])
+        stop = int(fields[4])
         info = dict(x.strip().split() for x in fields[8].split(';') if x != '')
         region = {
             'chrom': chrom,
@@ -279,9 +279,9 @@ def get_genenames(genenames_file):
     Parse file with genes from HGNC.
     Returns iter of gene dicts.
     """
-    header = genenames_file.readline().strip('\n').split('\t')
+    header = genenames_file.readline().decode().strip('\n').split('\t')
     for line in genenames_file:
-        fields = line.rstrip('\n').split('\t')
+        fields = line.decode().rstrip('\n').split('\t')
         assert len(header) == len(fields)
         fields = dict(zip(header, fields))
         if not fields['ensembl_gene_id']:

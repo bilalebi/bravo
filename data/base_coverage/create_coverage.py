@@ -61,7 +61,7 @@ def readDepthChunk(depthFile, contig, start, end):
        start -= 1
    with closing(pysam.Tabixfile(depthFile)) as tabix:
       for row in tabix.fetch(contig, start, end, parser = pysam.asTuple()):
-         chunk[long(row[1])] = int(row[3])
+         chunk[int(row[1])] = int(row[3])
    return chunk
 
 def readDepthFileList(inFileList):
