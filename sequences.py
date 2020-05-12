@@ -1,7 +1,7 @@
 import os
 import random
 import string
-
+from pathlib import Path
 import pymongo
 import pysam
 from utils import Xpos
@@ -15,7 +15,9 @@ class SequencesClient(object):
         self._window_bp = window_bp
         self._crams = dict()
         if not os.path.exists(cache_dir):
-            raise Exception('Provided cache path does not exist.')
+            print('[Warning] Provided cache path does not exist, an empty directory will be created.')
+            Path(cache_dir).mkdir(parents=True, exist_ok=True)
+            # raise Exception('Provided cache path does not exist.')
         if not os.path.isdir(cache_dir):
             raise Exception('Provided cache path must be a directory.')
         try: # check if has write permissions in cache directory
