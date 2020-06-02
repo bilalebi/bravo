@@ -50,10 +50,10 @@ def chunk(inFileList, contig, chunk_size_bp):
     start = min(starts)
     end = max(ends)
     n_chunks = int(numpy.ceil((end - start) / float(chunk_size_bp)))
-    for i, s in enumerate(xrange(start, end, chunk_size_bp)):
+    for i, s in enumerate(range(start, end, chunk_size_bp)):
         e = end if i == n_chunks - 1 else s + chunk_size_bp - 1
         output_file = contig + '_' + str(s) + '_' + str(e) + '.json.bgz'
-        print 'python', os.path.realpath(__file__), '-i', inFileList, 'aggregate', '-c', contig, '-s', s, '-e', e, '| bgzip -c >', output_file
+        print('python', os.path.realpath(__file__), '-i', inFileList, 'aggregate', '-c', contig, '-s', s, '-e', e, '| bgzip -c >', output_file)
 
 def readDepthChunk(depthFile, contig, start, end):
    chunk = dict()
@@ -61,7 +61,7 @@ def readDepthChunk(depthFile, contig, start, end):
        start -= 1
    with closing(pysam.Tabixfile(depthFile)) as tabix:
       for row in tabix.fetch(contig, start, end, parser = pysam.asTuple()):
-         chunk[long(row[1])] = int(row[3])
+         chunk[int(row[1])] = int(row[3])
    return chunk
 
 def readDepthFileList(inFileList):
@@ -78,7 +78,7 @@ def readDepthChunks(depthFiles, contig, start, end):
    chunks = dict()
    for depthFile in depthFiles:
       chunk = readDepthChunk(depthFile, contig, start, end)
-      for position, depth in chunk.iteritems():
+      for position, depth in chunk.items():
          if position in chunks:
             chunks[position].append(depth)
          else:
@@ -88,18 +88,18 @@ def readDepthChunks(depthFiles, contig, start, end):
 def writeDepthChunks(chunks, chromosome, nDepthFiles):
    if chromosome.startswith('chr'):
        chromosome = chromosome[3:]
-   for position, depths in collections.OrderedDict(sorted(chunks.items())).iteritems():
+   for position, depths in collections.OrderedDict(sorted(chunks.items())).items():
       counts = [0] * len(breaks)
       for depth in depths:
-         for i in xrange(len(breaks) - 1, -1, -1):
+         for i in range(len(breaks) - 1, -1, -1):
             if depth >= breaks[i]:
                counts[i] += 1
                break
-      for i in xrange(len(breaks) - 2, -1, -1):
+      for i in range(len(breaks) - 2, -1, -1):
          counts[i] += counts[i + 1];
 
       sys.stdout.write('%s\t%d\t{"chrom":"%s","start":%d,"end":%d,"mean":%g,"median":%g' % (chromosome, position, chromosome, position, position, numpy.mean(depths), numpy.median(depths)))
-      for i in xrange(0, len(breaks)):
+      for i in range(0, len(breaks)):
          sys.stdout.write(',"%d":%g' % (breaks[i], counts[i] / nDepthFiles))
       sys.stdout.write('}\n')
 

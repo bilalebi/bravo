@@ -103,7 +103,7 @@ class Xpos:
     @staticmethod
     def to_chrom_pos(xpos):
         pos = xpos % int(1e9)
-        chrom = Xpos.CHROMOSOME_NUMBER_TO_STRING[int(xpos) / int(1e9)]
+        chrom = Xpos.CHROMOSOME_NUMBER_TO_STRING[int(xpos / 1e9)]
         return (chrom, pos)
     @staticmethod
     def to_pos(xpos):
@@ -172,10 +172,10 @@ class ConsequenceDrilldown(object):
         """Returns something like ("APOL1", ["Gly70Ter", "Gly88Ter"])"""
         if not consequences_drilldown:
             return None, []
-        gene_drilldowns_for_top_csq = consequences_drilldown.values()[0]
+        gene_drilldowns_for_top_csq = list(consequences_drilldown.values())[0]
         if len(gene_drilldowns_for_top_csq) != 1: # we need exactly one gene
             return None, []
-        annotation_drilldowns_for_top_csq = gene_drilldowns_for_top_csq.values()[0]
+        annotation_drilldowns_for_top_csq = list(gene_drilldowns_for_top_csq.values())[0]
         gene_symbol_for_top_csq = annotation_drilldowns_for_top_csq[0].get('SYMBOL') or gene_drilldowns_for_top_csq.keys()[0]
         HGVSs_for_top_csq = sorted({ann['HGVS'] for ann in annotation_drilldowns_for_top_csq if ann.get('HGVS')})
         return gene_symbol_for_top_csq, sorted(HGVSs_for_top_csq)
@@ -191,7 +191,7 @@ class defaultdict_that_passes_key_to_default_factory(dict):
 
 def indent_pprint(obj):
     import pprint
-    print '\n'.join('####'+line for line in pprint.pformat(obj).split('\n'))
+    print('\n'.join('####'+line for line in pprint.pformat(obj).split('\n')))
 def mkdict(*dicts, **ret):
     for d in dicts: ret.update({k:True for k in d} if isinstance(d, (set,list)) else d)
     return ret
@@ -210,16 +210,16 @@ def histogram_from_counter(counter, num_bins=10, bin_range=None):
     bin_width = float(bin_range[1] - bin_range[0]) / num_bins
     if bin_width == 0:
         only_key = counter.keys()[0]
-        print 'Warning: metric always had the value {}'.format(counter.keys())
+        print('Warning: metric always had the value {}'.format(counter.keys()))
         return {'left_edges': [only_key-1, only_key, only_key+1], 'mids': [only_key-1, only_key, only_key+1], 'counts': [0, counter.values()[0], 0]}
     bin_left_edges = [bin_range[0] + bin_width * i for i in range(num_bins)]
     bin_counts = [0]*num_bins
-    for key, count in counter.iteritems():
+    for key, count in counter.items():
         bin_i = (key - bin_range[0]) / bin_width
         try:
             bin_i = int(floor(bin_i))
         except:
-            print 'error on', bin_i, key, bin_range[0], bin_range[1], bin_width
+            print('error on', bin_i, key, bin_range[0], bin_range[1], bin_width)
             raise
         bin_i = clamp(bin_i, min_value=0, max_value=num_bins-1)
         bin_counts[bin_i] += count

@@ -28,7 +28,7 @@ class Percentiles(object):
         self.data = None
     def descriptions(self):
         with pysam.VariantFile(self.VCF, 'r') as ifile:
-            for key, value in ifile.header.info.iteritems():
+            for key, value in ifile.header.info.items():
                 if key.endswith('_PCTL'):
                      yield '##INFO=<ID={},Number={},Type={},Description="{}">'.format(key, value.number, value.type, value.description)
     def overlaps(self, chrom, position):

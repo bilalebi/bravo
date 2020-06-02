@@ -31,12 +31,12 @@ def read_files_list(files_list):
             'chrom': unordered_coverage_files[position][1],
             'leftmost_position': position,
             'next_leftmost_position': sys.maxsize} for position in sorted(unordered_coverage_files.iterkeys())]
-   for i in xrange(1, len(ordered_coverage_files)):
+   for i in range(1, len(ordered_coverage_files)):
       if ordered_coverage_files[i - 1]['chrom'] != ordered_coverage_files[i]['chrom']:
          raise Exception('Input files store different contigs/chromosomes!')
       if ordered_coverage_files[i - 1]['leftmost_position'] == ordered_coverage_files[i]['leftmost_position']:
          raise Exception('Two input files store identical leftmost positions!')
-   for i in xrange(0, len(ordered_coverage_files) - 1):
+   for i in range(0, len(ordered_coverage_files) - 1):
       ordered_coverage_files[i]['next_leftmost_position'] = ordered_coverage_files[i + 1]['leftmost_position']
    return ordered_coverage_files
 
@@ -53,7 +53,7 @@ def merge_coverage_files(coverage_files, out_coverage_file):
                chrom = fields[0]
                if chrom != coverage_file['chrom']:
                   raise Exception('Multiple chromosomes detected within {} coverage file!'.format(coverage_file['name']))
-               position = long(fields[1])
+               position = int(fields[1])
 
                if last_position is None or last_position < position:
                   last_position = position

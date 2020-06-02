@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import contextlib
 import functools
@@ -234,7 +234,7 @@ def variant_page(variant_id):
         if 'pop_afs' in variant:
             variant['pop_afs'] = {pop_names.get(k, k): v for k, v in variant['pop_afs'].items()}
         else:
-            variant['pop_afs'] = { x: None  for x in pop_names.itervalues() }
+            variant['pop_afs'] = { x: None  for x in pop_names.values() }
         variant['pop_afs'][app.config['DATASET_NAME']] = variant['allele_freq']
 
         consequence_drilldown = ConsequenceDrilldown.from_variant(variant)
@@ -517,7 +517,7 @@ def variant_bams(variant_id):
         _log()
         start_time = time.time()
         response = sequencesClient.get_samples(db, variant_id)
-        print 'Done preparing samples. Took %s seconds' % (time.time() - start_time)
+        print('Done preparing samples. Took %s seconds' % (time.time() - start_time))
         if response is None:
             response = { 'names': [] }
         return jsonify(response)
@@ -533,7 +533,7 @@ def test_bai(variant_id, sample_id):
         start_time = time.time()
         file_path = sequencesClient.get_bai(db, variant_id, sample_id)
         if file_path is None: _err(); abort(500)
-        print 'Done preparing BAM and BAI. Took %s seconds' % (time.time() - start_time)
+        print('Done preparing BAM and BAI. Took %s seconds' % (time.time() - start_time))
         return make_response(send_file(file_path, as_attachment = False))
     except: _err(); abort(500)
 
@@ -550,7 +550,7 @@ def test_bam(variant_id, sample_id):
         if result is None: _err(); abort(500)
         response = Response(result['data'], 206, mimetype = "application/octet-stream .bam", direct_passthrough = True)
         response.headers['Content-Range'] = 'bytes {0}-{1}/{2}'.format(result['start'], result['end'], result['size'])
-        print 'Prepared BAM for sending. Took %s seconds' % (time.time() - start_time)
+        print('Prepared BAM for sending. Took %s seconds' % (time.time() - start_time))
         return response
     except: _err(); abort(500)
 

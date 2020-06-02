@@ -291,8 +291,6 @@ def deserialize_query_filter(value, value_type):
    try:
       if value_type == int:
          value = int(value)
-      elif value_type == long:
-         value = long(value)
       elif value_type == float:
          value = float(value)
       elif value_type == str:
@@ -328,8 +326,6 @@ def validate_query(value):
                 key_type = allowed_sort_keys[key]
                 if key_type == int:
                     value['last'][i] = int(value['last'][i])
-                elif key_type == long:
-                    value['last'][i] = long(value['last'][i])
                 elif key_type == float:
                     value['last'][i] = float(value['last'][i])
         except:
@@ -374,7 +370,7 @@ def build_region_query(args, xstart, xend):
 def build_link_next(args, last_object_id, last_variant, mongo_sort):
     if last_object_id is None or last_variant is None:
         return None
-    link_next = request.base_url + '?' + '&'.join(('{}={}'.format(arg, value) for arg, value in request.args.iteritems(True) if arg != 'last'))
+    link_next = request.base_url + '?' + '&'.join(('{}={}'.format(arg, value) for arg, value in request.args.items(True) if arg != 'last'))
     if ('sort' not in args or len(args['sort']) == 0) and mongo_sort:
         link_next += '&sort=' +  ','.join(('{}:{}'.format('pos' if key == 'xpos' else key, 'asc' if sort_direction == ASCENDING else 'desc') for key, sort_direction in mongo_sort))
     if mongo_sort:

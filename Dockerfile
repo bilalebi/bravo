@@ -1,4 +1,4 @@
-FROM python:2.7-slim
+FROM python:3.7-slim
 
 COPY . /
 
@@ -25,4 +25,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 80
 
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "--workers", "1", "-k", "gevent", "exac:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "--workers", "1", "-k", "gevent", "exac:app", "--log-level", "DEBUG", "--timeout", "3000"]

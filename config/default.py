@@ -46,10 +46,10 @@ BRAVO_AUTH_SECRET = ''
 BRAVO_ACCESS_SECRET = ''
 BRAVO_AUTH_URL_PREFIX = '/api/' + API_VERSION + '/auth'
 
-# Data Directory Settings. By default all data is stored in /data root directory
+# Data Directory Settings. By default all data is stored in /data root directory inside the docker image
 IGV_REFERENCE_PATH = '/data/genomes/<your-reference-file>'
 IGV_CRAM_DIRECTORY = '/data/cram/'
-IGV_CACHE_COLLECTION = 'igv_cache'
+IGV_CACHE_COLLECTION = '/igv_cache'
 IGV_CACHE_DIRECTORY = '/data/cache/igv_cache/'
 IGV_CACHE_LIMIT = 1000
 BASE_COVERAGE_DIRECTORY = '/data/coverage/'

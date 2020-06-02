@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import argparse
 import contextlib
@@ -107,17 +107,17 @@ def load_gene_models(canonical_transcripts_file, omim_file, genenames_file, genc
                 gene['other_names'] = genenames[gene_id][1]
             db.genes.insert_one(gene)
     db.genes.create_indexes([pymongo.operations.IndexModel(key) for key in ['gene_id', 'gene_name', 'other_names', 'xstart', 'xstop']])
-    sys.stdout.write('Inserted {} gene(s).\n'.format(db.genes.count()))
+    sys.stdout.write('Inserted {} gene(s).\n'.format(db.genes.count_documents({})))
 
     with gzip.GzipFile(gencode_file, 'r') as ifile:
         db.transcripts.insert_many(transcript for transcript in parsing.get_regions_from_gencode_gtf(ifile, {'transcript'}))
     db.transcripts.create_indexes([pymongo.operations.IndexModel(key) for key in ['transcript_id', 'gene_id']])
-    sys.stdout.write('Inserted {} transcript(s).\n'.format(db.transcripts.count()))
+    sys.stdout.write('Inserted {} transcript(s).\n'.format(db.transcripts.count_documents({})))
 
     with gzip.GzipFile(gencode_file, 'r') as ifile:
         db.exons.insert_many(exon for exon in parsing.get_regions_from_gencode_gtf(ifile, {'exon', 'CDS', 'UTR'}))
     db.exons.create_indexes([pymongo.operations.IndexModel(key) for key in ['exon_id', 'transcript_id', 'gene_id']])
-    sys.stdout.write('Inserted {} exon(s).\n'.format(db.exons.count()))
+    sys.stdout.write('Inserted {} exon(s).\n'.format(db.exons.count_documents({})))
 
 
 def create_users():
@@ -143,7 +143,7 @@ def load_whitelist(whitelist_file):
             if email:
                 db.whitelist.insert({'user_id': email})
     db.whitelist.create_index('user_id')
-    sys.stdout.write('Inserted {} email(s).\n'.format(db.whitelist.count()))
+    sys.stdout.write('Inserted {} email(s).\n'.format(db.whitelist.count_documents({})))
 
 
 def get_file_contig_pairs(files):
@@ -181,7 +181,7 @@ def load_dbsnp(dbsnp_files, threads):
     with contextlib.closing(multiprocessing.Pool(threads)) as threads_pool:
         threads_pool.map(functools.partial(_write_to_collection, collection = 'dbsnp', reader = parsing.get_snp_from_dbsnp_file), get_file_contig_pairs(dbsnp_files))
     db.dbsnp.create_indexes([pymongo.operations.IndexModel(key) for key in ['xpos', 'rsid']])
-    sys.stdout.write('Inserted {} variant(s).\n'.format(db.dbsnp.count()))
+    sys.stdout.write('Inserted {} variant(s).\n'.format(db.dbsnp.count_documents({})))
 
 
 def load_metrics(metrics_file):
@@ -197,7 +197,7 @@ def load_metrics(metrics_file):
             metric = json.loads(line)
             db.metrics.insert(metric)
     db.metrics.create_index('metric')
-    sys.stdout.write('Inserted {} metric(s).\n'.format(db.metrics.count()))
+    sys.stdout.write('Inserted {} metric(s).\n'.format(db.metrics.count_documents({})))
 
 
 def load_variants(variants_files, threads):
@@ -212,7 +212,7 @@ def load_variants(variants_files, threads):
     with contextlib.closing(multiprocessing.Pool(threads)) as threads_pool:
         threads_pool.map(functools.partial(_write_to_collection, collection = 'variants', reader = parsing.get_variants_from_sites_vcf), get_file_contig_pairs(variants_files))
     db.variants.create_indexes([pymongo.operations.IndexModel(key) for key in ['xpos', 'xstop', 'rsids', 'filter']])
-    sys.stdout.write('Inserted {} variant(s).\n'.format(db.variants.count()))
+    sys.stdout.write('Inserted {} variant(s).\n'.format(db.variants.count_documents({})))
 
 
 def create_sequence_cache(collection_name):
@@ -240,7 +240,7 @@ def load_custom_variants(variants_files, collection_name, threads):
     with contextlib.closing(multiprocessing.Pool(threads)) as threads_pool:
         threads_pool.map(functools.partial(_write_to_collection, collection = collection_name, reader = parsing.get_variants_from_sites_vcf, histograms = False), get_file_contig_pairs(variants_files))
     db[collection_name].create_indexes([pymongo.operations.IndexModel(key) for key in ['xpos', 'xstop', 'filter']])
-    sys.stdout.write('Inserted {} variant(s).\n'.format(db[collection_name].count()))
+    sys.stdout.write('Inserted {} variant(s).\n'.format(db[collection_name].count_documents({})))
 
 
 def _load_percentiles_from_vcf(vcf):
@@ -262,12 +262,12 @@ def _load_percentiles_from_vcf(vcf):
                 n_matched += res.matched_count
                 n_modified += res.modified_count
                 requests = []
-                print 'VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified) 
+                print('VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified)) 
         if len(requests) > 0:
             res = db.variants.bulk_write(requests, ordered = False)
             n_matched += res.matched_count
             n_modified += res.modified_count
-            print 'Finished. VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified)
+            print('Finished. VCF {}. Processed {} variant(s) in {} second(s), {} matched, {} modified.'.format(vcf, n_variants, int(time.time() - start_time), n_matched, n_modified))
 
 
 def load_percentiles(variant_files, threads):
@@ -292,7 +292,7 @@ def _update_collection(args, collection, reader):
     for document in reader(file, chrom, None, None):
         requests.append(pymongo.operations.UpdateOne(
             {'xpos': document['xpos'], 'ref': document['ref'], 'alt': document['alt']},
-            {'$set': {k: v for k, v in document.iteritems() if k not in { 'xpos', 'ref', 'alt' }}},
+            {'$set': {k: v for k, v in document.items() if k not in { 'xpos', 'ref', 'alt' }}},
             upsert = False))
         n_documents += 1
         if n_documents % 100000 == 0:
