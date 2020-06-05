@@ -73,7 +73,10 @@ def get_db(new_connection=False):
     # Only use the database within a request context! Something about threads/forks.
     # See <https://jira.mongodb.org/browse/PYTHON-961>
     # Note: I just added `connect=False`, so maybe we don't need this function anymore (unless used with new_connection=True)
-    if new_connection:
+    uri = app.config['MONGO']['uri']
+    if uri:
+        client = pymongo.MongoClient(uri)
+    elif new_connection:
         client = pymongo.MongoClient(host=app.config['MONGO']['host'], port=app.config['MONGO']['port'], connect=False)
     else:
         client = get_db._mongo_client

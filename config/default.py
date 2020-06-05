@@ -1,3 +1,5 @@
+import os
+
 DEBUG = False
 TESTING = False
 PROXY = False                       # True if app is proxied by Apache or similar.
@@ -13,7 +15,8 @@ NUM_VARIANTS = 'XYZ million'        # Change to the number of variants you are u
 MONGO = {
     'host': 'mongo',
     'port': 27017,
-    'name': 'bravo'
+    'name': 'bravo',
+    'uri': os.environ.get('MONGO_URI')
 }
 DOWNLOAD_ALL_FILEPATH = ''
 URL_PREFIX = ''

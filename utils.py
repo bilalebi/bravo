@@ -176,7 +176,7 @@ class ConsequenceDrilldown(object):
         if len(gene_drilldowns_for_top_csq) != 1: # we need exactly one gene
             return None, []
         annotation_drilldowns_for_top_csq = list(gene_drilldowns_for_top_csq.values())[0]
-        gene_symbol_for_top_csq = annotation_drilldowns_for_top_csq[0].get('SYMBOL') or gene_drilldowns_for_top_csq.keys()[0]
+        gene_symbol_for_top_csq = annotation_drilldowns_for_top_csq[0].get('SYMBOL') or list(gene_drilldowns_for_top_csq.keys())[0]
         HGVSs_for_top_csq = sorted({ann['HGVS'] for ann in annotation_drilldowns_for_top_csq if ann.get('HGVS')})
         return gene_symbol_for_top_csq, sorted(HGVSs_for_top_csq)
 
