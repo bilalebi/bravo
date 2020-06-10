@@ -680,7 +680,7 @@ def oauth_callback_google():
     _log()
     if not app.config['GOOGLE_AUTH']:
         abort(404)
-    username, email, picture = google_sign_in.callback() # oauth.callback reads request.args.
+    email, picture = google_sign_in.callback()  # oauth.callback reads request.args.
     if email is None:
         flash('Authentication failed.')
         return redirect(url_for('.homepage'))
@@ -700,7 +700,7 @@ def oauth_callback_google():
             result = db.users.update_one({"user_id": user.get_id()}, {"$set": {"picture": picture}})
             user.picture = picture
     else:
-        user = User(email = email, username = username or email.split('@')[0], picture = picture)
+        user = User(email = email, username = email.split('@')[0], picture = picture)
         db.users.insert(encode_user(user))
 
     login_user(user, remember = True, duration = timedelta(days = 1))

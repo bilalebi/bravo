@@ -34,7 +34,7 @@ class GoogleSignIn(object):
 
     def callback(self):
         if 'code' not in request.args:
-            return (None, None, None)
+            return (None, None)
         data = {
             'code': request.args['code'],
             'grant_type': 'authorization_code',
@@ -43,6 +43,6 @@ class GoogleSignIn(object):
         try:
             oauth_session = self.service.get_auth_session(data = data, decoder = json.loads)
         except:
-            return (None, None, None)
+            return (None, None)
         user = oauth_session.get('').json()
-        return (user['name'], user['email'], user.get('picture'))
+        return (user['email'], user.get('picture'))
