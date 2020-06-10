@@ -31,11 +31,9 @@
 
         <div class="row" id="home-titlebox">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-                <br><img src="{{ url_for('.static', filename='img/bravo_logo.png') }}" width="200px" />
-                {% if config['SHOW_POWERED_BY'] %}
-                <h3>Powered by {{ config['DATASET_NAME'] }}</h3>
-                {% endif %}
-                <p>(This dataset includes {{ config['NUM_VARIANTS'] }} variants on {{ config['NUM_SAMPLES'] }} individuals.  <a href="/freeze3a/hg19">Click here to switch to Freeze3a on GRCh37/hg19.</a>)</p>
+                <br><br><h1>The 100,000 Genomes Project Variant Browser</h1><br>
+                <h4>Dataset {{ config['DATASET_NAME'] }}, Release {{ config['DATASET_RELEASE'] }}</h4>
+                <p>This dataset includes {{ config['NUM_VARIANTS'] }} variants on {{ config['NUM_SAMPLES'] }} individuals</p>
             </div>
         </div>
         <div class="row">

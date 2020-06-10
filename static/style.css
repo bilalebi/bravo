@@ -19,6 +19,7 @@
 
 .navbar {
     margin-bottom: 0px;
+    border-radius:0 !important;
 }
 
 .navbar .navbar-form{
@@ -26,6 +27,15 @@
     border: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.navbar .navbar-toggle {
+    border-color: white;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse {
+    border-color: #007C84;
+    background: #007C84;
 }
 
 .nav>li>a {
@@ -40,6 +50,11 @@
 }
 #home-titlebox h2 {
     font-style: italic;
+}
+
+#footer-logos {
+    margin-bottom: 12px;
+    padding-top: 100px;
 }
 
 #home-searchbox {
@@ -189,4 +204,10 @@ TODO: come up with a better way to position tooltip
 
 .gene-name {
     font-style: italic;
+}
+
+#rectangle {
+    width:100%;
+    height:30px;
+    background: #007C84;
 }

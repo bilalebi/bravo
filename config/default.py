@@ -7,7 +7,7 @@ PROXY = False                       # True if app is proxied by Apache or simila
 # Application Settings
 BROWSER_NAME = 'Bravo'
 DATASET_NAME = 'Example Dataset'    # Change to your dataset name
-SHOW_POWERED_BY = True
+DATASET_RELEASE = 'X'
 NUM_SAMPLES = 0                     # Change to the number of samples you are using
 NUM_VARIANTS = 'XYZ million'        # Change to the number of variants you are using
 
@@ -18,7 +18,6 @@ MONGO = {
     'name': 'bravo',
     'uri': os.environ.get('MONGO_URI')
 }
-DOWNLOAD_ALL_FILEPATH = ''
 URL_PREFIX = ''
 
 # Google Analytics Settings

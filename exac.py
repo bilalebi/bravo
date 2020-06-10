@@ -476,22 +476,6 @@ def bad_request_page(message):
     return render_template('bad_request.html', message = message), 400
 
 
-@bp.route('/download')
-@require_agreement_to_terms_and_store_destination
-def download_page():
-    _log()
-    return render_template('download.html')
-
-
-@bp.route('/download/all')
-@require_agreement_to_terms_and_store_destination
-def download_full_vcf():
-    _log()
-    try:
-        return make_response(send_file(app.config['DOWNLOAD_ALL_FILEPATH'], as_attachment=True, mimetype='application/gzip'))
-    except:_err(); abort(500)
-
-
 @bp.route('/about')
 def about_page():
     _log()
@@ -669,6 +653,12 @@ def logout():
 def get_authorized():
     _log()
     if app.config['GOOGLE_AUTH']:
+        if not app.config['GOOGLE_LOGIN_CLIENT_ID']:
+            flash('The OAuth client ID was not found!')
+            return redirect(url_for('.homepage'))
+        if not app.config['GOOGLE_LOGIN_CLIENT_SECRET']:
+            flash('Google login client secret is missing!')
+            return redirect(url_for('.homepage'))
         if current_user.is_anonymous:
             return google_sign_in.authorize()
         return redirect(session.pop('original_destination', url_for('.homepage')))
