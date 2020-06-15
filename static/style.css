@@ -211,3 +211,8 @@ TODO: come up with a better way to position tooltip
     height:30px;
     background: #007C84;
 }
+
+.grayout {
+    opacity: 0.6; /* Real browsers */
+    filter: alpha(opacity = 60); /* MSIE */
+}

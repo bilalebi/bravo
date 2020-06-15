@@ -4,7 +4,7 @@
     <dt>Existing Variant</dt>
     <dd>
     {% if variant.rsids == [] %}
-        None found
+        <span class="grayout">Variant ID doesn't exist</span>
     {% else %}
         {% for _rsid in variant.rsids %}
             <a href="https://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs={{ _rsid }}" target="_blank">{{ _rsid }}</a>
@@ -27,6 +27,19 @@
             {{ variant.variant_id }}
             <i class="fa fa-external-link"></i>
         </a>
+    </dd>
+    <dt>Ensembl</dt>
+    <dd>
+        {% if variant.rsids == [] %}
+            <span class="grayout">Variant ID doesn't exist</span>
+        {% else %}
+            {% for _rsid in variant.rsids %}
+                <a href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?db=core;r={{ variant.chrom }}%3A{{ variant.pos }}-{{ variant.pos }}%3Bv={{ variant.rsids }}" target="_blank">
+                    {{ variant.variant_id }}
+                    <i class="fa fa-external-link"></i>
+                </a>
+            {% endfor %}
+        {% endif %}
     </dd>
     <dt>ClinVar</dt>
     <dd id='clinvar'>

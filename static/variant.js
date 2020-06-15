@@ -391,15 +391,22 @@ function check_for_variant_in_clinvar() {
     _.each(clinvar_searches, function(clinvar_search) {
         $.getJSON(clinvar_search.xhr_url)
         .done(function(data) {
-            var link_text = (data.esearchresult.count !== "0") ? 'Open <%= name %> in ClinVar' : '<%= name %> is not in ClinVar';
+            var link_text = (data.esearchresult.count !== "0") ? 'Open <%= name %> in ClinVar' : null;
             var link_style = 'style="float:left; clear:both"';
             if ($('#clinvar_loading').length !== 0) {
                 $('#clinvar_loading').remove();
                 link_style = ''; // One of the links must not float or clear, so that it can sit next to <dt>ClinVar</dt>
             }
-            $('#clinvar').append(_.template(
-                '<a href="<%= url %>" target="_blank" <%= style %>>' + link_text + ' <i class="fa fa-external-link"></i> </a> '
-            )({name: clinvar_search.name, url: clinvar_search.webpage_url, style: link_style}));
+            if (link_text == null) {
+                $('#clinvar').append(_.template(
+                    '<span class="grayout"> Not available </span>'
+                ));
+            }
+            else {
+                $('#clinvar').append(_.template(
+                    '<a href="<%= url %>" target="_blank" <%= style %>>' + link_text + ' <i class="fa fa-external-link"></i> </a> '
+                )({name: clinvar_search.name, url: clinvar_search.webpage_url, style: link_style}));
+            }
         });
     });
 }

@@ -490,12 +490,6 @@ def terms_page():
     abort(404)
 
 
-@bp.route('/help')
-def help_page():
-    _log()
-    return render_template('help.html')
-
-
 @bp.route('/variant/<variant_id>/reads')
 @require_agreement_to_terms_and_store_destination
 def variant_bams(variant_id):

@@ -76,7 +76,6 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ url_for('.about_page') }}" style="color: white; font-weight: bold;">About</a></li>
-                <li><a href="{{ url_for('.help_page') }}" style="color: white; font-weight: bold;">API</a></li>
                 {% if config['GOOGLE_AUTH'] and config['TERMS'] %}
                 <li><a href="{{ url_for('.terms_page') }}" style="color: white; font-weight: bold;">Terms</a></li>
      		{% endif %}

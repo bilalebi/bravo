@@ -16,17 +16,8 @@ window.model.url_suffix = '/transcript/{{ transcript.transcript_id }}';
 <p><span class="gene-name">{{ gene.gene_name }}</span>: {{ gene.full_gene_name }}</p>
 {% endif %}
 <p>region: <a href="{{ url_for('.region_page', **intervalset.to_region_dict()) }}">{{ 'chr{chrom}:{start}-{stop}'.format(**intervalset.to_region_dict()) }}</a></p>
-<div class="dropdown" style="display:inline-block">
-  <button class="btn btn-default dropdown-toggle" type="button" id="external_ref_dropdown" data-toggle="dropdown">
-    External References<span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="external_ref_dropdown">
-    <li role="presentation">
-      <a href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position={{ 'chr{chrom}%3A{start}-{stop}'.format(**intervalset.to_region_dict()) }}" target="_blank">
-        UCSC Browser<i class="fa fa-external-link"></i>
-      </a>
-    </li>
-  </ul>
-</div>
+<a class="btn btn-default" href="http://grch37.ensembl.org/id/{{ transcript.transcript_id }}" target="_blank">
+    View in Ensembl <i class="fa fa-external-link"></i>
+</a>
 <a class="btn btn-default" href="{{ url_for('.download_transcript_variants', transcript_id=transcript.transcript_id) }}">Download all variants</a>
 {% endblock %}

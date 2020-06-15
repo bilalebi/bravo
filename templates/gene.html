@@ -16,55 +16,8 @@ window.model.url_suffix = fmt('/gene/{0}', {{ gene.gene_id|tojson()|safe }});
       <p><span class="gene-name">{{ gene.gene_name }}</span>: {{ gene.full_gene_name }}</p>
       {% endif %}
       <p>region: <a href="{{ url_for('.region_page', **intervalset.to_region_dict()) }}">{{ 'chr{chrom}:{start}-{stop}'.format(**intervalset.to_region_dict()) }}</a></p>
-      <div class="dropdown" style="display:inline-block">
-        <button class="btn btn-default dropdown-toggle" type="button" id="external_ref_dropdown" data-toggle="dropdown">
-          External References
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="external_ref_dropdown">
-          <li role="presentation">
-            <a href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position={{ 'chr{chrom}%3A{start}-{stop}'.format(**intervalset.to_region_dict()) }}" target="_blank">
-              UCSC Browser<i class="fa fa-external-link"></i>
-            </a>
-          </li>
-          <li role="presentation">
-            <a href="http://www.genecards.org/cgi-bin/carddisp.pl?gene={{ gene.gene_name }}" target="_blank">
-              GeneCards<i class="fa fa-external-link"></i>
-            </a>
-           </li>
-           {% if gene.omim_accession %}
-           <li role="presentation">
-             <a href="http://omim.org/entry/{{ gene.omim_accession }}" target="_blank">
-               OMIM<i class="fa fa-external-link"></i>
-             </a>
-           </li>
-           {% endif %}
-           <li role="presentation">
-             <a role="menuitem" tabindex="-1" href="http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g={{ gene.gene_id }}" target="_blank">
-               Ensembl <i class="fa fa-external-link"></i>
-             </a>
-           </li>
-           <li role="presentation">
-             <a role="menuitem" tabindex="-1" href="http://en.wikipedia.org/wiki/{{ gene.gene_name }}" target="_blank">
-               Wikipedia <i class="fa fa-external-link"></i>
-             </a>
-           </li>
-           <li role="presentation">
-             <a role="menuitem" tabindex="-1" href="https://www.ncbi.nlm.nih.gov/pubmed?term={{ gene.gene_name }}" target="_blank">
-               PubMed Search <i class="fa fa-external-link"></i>
-             </a>
-           </li>
-           <li role="presentation">
-             <a role="menuitem" tabindex="-1" href="http://www.wikigenes.org/?search={{ gene.gene_name }}" target="_blank">
-               Wikigenes <i class="fa fa-external-link"></i>
-             </a>
-           </li>
-           <li role="presentation">
-             <a role="menuitem" tabindex="-1" href="http://www.gtexportal.org/home/gene/{{ gene.gene_name }}" target="_blank">
-               GTEx (Expression) <i class="fa fa-external-link"></i>
-             </a>
-           </li>
-         </ul>
-       </div>
+       <a class="btn btn-default" href="http://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g={{ gene.gene_id }}" target="_blank">
+           View in Ensembl <i class="fa fa-external-link"></i>
+       </a>
        <a class="btn btn-default" href="{{ url_for('.download_gene_variants', gene_id=gene.gene_id) }}">Download all variants</a>
 {% endblock %}

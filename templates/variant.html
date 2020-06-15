@@ -32,7 +32,7 @@
    <div id="variant-name" class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <h1><span class="hidden-xs">Variant: </span>{{ variant.chrom }}:{{ variant.pos }} {{ variant.ref }} / {{ variant.alt }}
+                <h1><span class="hidden-xs">Variant: </span>{{ variant.chrom }}:{{ variant.pos }}:{{ variant.ref }}:{{ variant.alt }}
                   {% if top_HGVSs %}
                     (<span class="gene-name">{{ gene_for_top_csq }}</span>:
                      {{ ', '.join(top_HGVSs) }})
