@@ -457,7 +457,7 @@ def get_variants_subset_for_intervalset(db, intervalset, columns_to_return, orde
 
 def get_variants_csv_str_for_intervalset(db, intervalset):
     import io, csv
-    out = io.BytesIO()
+    out = io.StringIO()
     writer = csv.writer(out)
     fields = 'chrom pos ref alt rsids filter genes allele_num allele_count allele_freq hom_count site_quality quality_metrics.DP cadd_phred'.split()
     writer.writerow(fields)
