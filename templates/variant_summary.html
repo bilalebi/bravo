@@ -21,20 +21,13 @@
     <dt>CADD</dt>
     <dd>{{ variant.cadd_phred }}</dd>
     {% endif %}
-    <dt>UCSC</dt>
-    <dd>
-        <a href="http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&highlight=hg38.chr{{ variant.chrom }}%3A{{ variant.pos }}-{{ variant.pos + variant.ref|length - 1 }}&position=chr{{ variant.chrom }}%3A{{ variant.pos - 25 }}-{{ variant.pos + variant.ref|length - 1 + 25 }}" target="_blank">
-            {{ variant.variant_id }}
-            <i class="fa fa-external-link"></i>
-        </a>
-    </dd>
     <dt>Ensembl</dt>
     <dd>
         {% if variant.rsids == [] %}
             <span class="grayout">Variant ID doesn't exist</span>
         {% else %}
             {% for _rsid in variant.rsids %}
-                <a href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?db=core;r={{ variant.chrom }}%3A{{ variant.pos }}-{{ variant.pos }}%3Bv={{ variant.rsids }}" target="_blank">
+                <a href="http://www.ensembl.org/Homo_sapiens/Variation/Explore?db=core;v={{ variant.rsids | first }}" target="_blank">
                     {{ variant.variant_id }}
                     <i class="fa fa-external-link"></i>
                 </a>

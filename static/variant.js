@@ -399,7 +399,7 @@ function check_for_variant_in_clinvar() {
             }
             if (link_text == null) {
                 $('#clinvar').append(_.template(
-                    '<span class="grayout"> Not available </span>'
+                    '<span class="grayout"> Not available </span><br>'
                 ));
             }
             else {

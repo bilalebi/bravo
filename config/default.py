@@ -25,7 +25,7 @@ GOOGLE_ANALYTICS_TRACKING_ID = ''                             # (Optional) Chang
 SECRET_KEY = os.environ.get('BRAVO_SECRET_KEY')               # (Optional) Change to your Google Analytics Secret Key
 
 # Google Auth Settings
-GOOGLE_AUTH = True                                                           # True if app is using Google Auth 2.0
+GOOGLE_AUTH = os.environ.get('BRAVO_GOOGLE_AUTH')                              # True if app is using Google Auth 2.0
 GOOGLE_LOGIN_CLIENT_ID = os.environ.get('GOOGLE_LOGIN_CLIENT_ID')             # Insert your Google Login Client ID
 GOOGLE_LOGIN_CLIENT_SECRET = os.environ.get('GOOGLE_LOGIN_CLIENT_SECRET')     # Insert your Google Login Secret
 TERMS = True                         # True if app requires 'Terms of Use'. Can be used only if GOOGLE_AUTH is enabled.
