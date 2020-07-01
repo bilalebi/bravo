@@ -15,7 +15,7 @@ NUM_VARIANTS = 'XYZ million'        # Change to the number of variants you are u
 MONGO = {
     'host': 'mongo',
     'port': 27017,
-    'name': 'bravo',
+    'name': 'bravovcf',
     'uri': os.environ.get('MONGO_URI')
 }
 URL_PREFIX = ''
