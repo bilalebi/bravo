@@ -355,7 +355,7 @@ def download_region_variants(chrom, start, stop):
     try:
         start,stop = int(start),int(stop); assert stop-start <= MAX_REGION_LENGTH
         intervalset = IntervalSet.from_chrom_start_stop(chrom, start, stop)
-        return _get_variants_csv_for_intervalset(intervalset, 'chr{}-{}-{}.csv'.format(chrom, start, stop))
+        return _get_variants_csv_for_intervalset(intervalset, '{}-{}-{}.csv'.format(chrom, start, stop))
     except:_err(); abort(500)
 
 def _get_variants_csv_for_intervalset(intervalset, filename):

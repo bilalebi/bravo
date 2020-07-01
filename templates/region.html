@@ -1,7 +1,7 @@
 {% extends "_region_gene_trans_base.html" %}
 
 {% block title %}
-<title>{{ config['BROWSER_NAME'] }} - {{ 'chr{chrom}:{start}-{stop}'.format(**intervalset.to_region_dict()) }}</title>
+<title>{{ config['BROWSER_NAME'] }} - {{ '{chrom}:{start}-{stop}'.format(**intervalset.to_region_dict()) }}</title>
 {% endblock %}
 
 
@@ -11,8 +11,8 @@ window.model.url_suffix = fmt('/region/{0}', {{ intervalset.to_region_dashed()|t
 
 
 {% block in_topleft_col %}
-<h1>Region: {{ 'chr{chrom} : {start:,} - {stop:,}'.format(**intervalset.to_region_dict()) }}</h1>
-<a class="btn btn-default" href="http://www.ensembl.org/Homo_sapiens/Location/View?r={{ 'chr{chrom} : {start:,} - {stop:,}'.format(**intervalset.to_region_dict()) }}" target="_blank">
+<h1>Region: {{ '{chrom}:{start:,}-{stop:,}'.format(**intervalset.to_region_dict()) }}</h1>
+<a class="btn btn-default" href="http://www.ensembl.org/Homo_sapiens/Location/View?r={{ '{chrom}:{start:,}-{stop:,}'.format(**intervalset.to_region_dict()) }}" target="_blank">
     View in Ensembl <i class="fa fa-external-link"></i>
 </a>
 <a class="btn btn-default" href="{{ url_for('.download_region_variants', **intervalset.to_region_dict()) }}">Download all variants</a>

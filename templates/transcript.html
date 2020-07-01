@@ -15,7 +15,7 @@ window.model.url_suffix = '/transcript/{{ transcript.transcript_id }}';
 {% if gene.full_gene_name %}
 <p><span class="gene-name">{{ gene.gene_name }}</span>: {{ gene.full_gene_name }}</p>
 {% endif %}
-<p>region: <a href="{{ url_for('.region_page', **intervalset.to_region_dict()) }}">{{ 'chr{chrom}:{start}-{stop}'.format(**intervalset.to_region_dict()) }}</a></p>
+<p>region: <a href="{{ url_for('.region_page', **intervalset.to_region_dict()) }}">{{ '{chrom}:{start}-{stop}'.format(**intervalset.to_region_dict()) }}</a></p>
 <a class="btn btn-default" href="http://grch37.ensembl.org/id/{{ transcript.transcript_id }}" target="_blank">
     View in Ensembl <i class="fa fa-external-link"></i>
 </a>
