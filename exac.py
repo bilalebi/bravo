@@ -233,9 +233,13 @@ def variant_page(variant_id):
         variant = lookups.get_variant_by_variant_id(db, variant_id, default_to_boring_variant = False)
         if not variant: return not_found_page('The requested variant {!s} could not be found.'.format(variant_id))
 
-        pop_names = {k + '_AF': '1000G ' + v for k, v in {'AFR':'African', 'AMR':'American', 'EAS':'East Asian', 'EUR':'European', 'SAS':'South Asian'}.items()}
+        pop_names = {'gnomAD_AF_' + k : v for k, v in {'AFR':'African Ancestries', 'EAS':'East Asian Ancestries',
+                                                       'EUR':'European Ancestries', 'SAS':'South Asian Ancestries',
+                                                       'NFE':'European (non-Finnish)', 'ALL':'All ancestries',
+                                                       'AMR':'American Ancestries'}.items()}
+        pop_names = {k.upper(): v for k, v in pop_names.items()}
         if 'pop_afs' in variant:
-            variant['pop_afs'] = {pop_names.get(k, k): v for k, v in variant['pop_afs'].items()}
+            variant['pop_afs'] = {pop_names.get(k.upper(), k): v for k, v in variant['pop_afs'].items()}
         else:
             variant['pop_afs'] = { x: None  for x in pop_names.values() }
         variant['pop_afs'][app.config['DATASET_NAME']] = variant['allele_freq']

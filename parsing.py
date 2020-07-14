@@ -186,12 +186,12 @@ def _get_hgvs(annotation):
     if hgvsp: return hgvsp
     return ''
 
-POP_AFS_1000G = {
-    "EAS_AF": "1000G East Asian",
-    "AFR_AF": "1000G African",
-    "EUR_AF": "1000G European",
-    "SAS_AF": "1000G South Asian",
-    "AMR_AF": "1000G American"
+POP_AFS_PROJECT = {
+    "gnomAD_AF_AFR": "African Ancestries",
+    "gnomAD_AF_EAS": "East Asian Ancestries",
+    "gnomAD_AF_NFE": "European (non-Finnish)",
+    "gnomAD_AF_SAS": "South Asian Ancestries",
+    "gnomAD_AF_ALL": "All ancestries",
 }
 def get_pop_afs(variant):
     """
@@ -201,7 +201,7 @@ def get_pop_afs(variant):
         return {}
     try:
         pop_afs = {}
-        for pop in POP_AFS_1000G:
+        for pop in POP_AFS_PROJECT:
             af_strings = [ann[pop].split('&')[0] for ann in variant['vep_annotations'] if ann['Allele'] == variant['alt'] or ann['Allele'] == '-']
             assert boltons.iterutils.same(af_strings)
             if af_strings and af_strings[0] != '':

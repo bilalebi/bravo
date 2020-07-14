@@ -6,7 +6,7 @@ PROXY = False                       # True if app is proxied by Apache or simila
 
 # Application Settings
 BROWSER_NAME = 'Bravo'
-DATASET_NAME = 'Example Dataset'    # Change to your dataset name
+DATASET_NAME = 'Study Freeze X on GRCh38'    # Change to your dataset name
 DATASET_RELEASE = 'X'
 NUM_SAMPLES = 0                     # Change to the number of samples you are using
 NUM_VARIANTS = 'XYZ million'        # Change to the number of variants you are using

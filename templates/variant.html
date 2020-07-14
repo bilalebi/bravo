@@ -94,7 +94,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for pop in variant.pop_afs|sort %}
+                                {% for pop in variant.pop_afs %}
                                     <tr>
                                         <td>{{ pop }}</td>
                                         {% if variant.pop_afs[pop] is not none %}
