@@ -141,14 +141,14 @@ class ConsequenceDrilldown(object):
             elif len(consequences) == 1:
                 return (consequences.keys(), [])
             consequence_heights = [0]
-            for annotations in consequences.values()[0].values():
+            for annotations in list(consequences.values())[0].values():
                 consequence_heights[0] += len(annotations) # The number of annotations in this gene (because all are shown in the first consequence)
                 # TODO: check for the other things displayed in variant_details.html
-            for csq in consequences.values()[1:]:
+            for csq in list(consequences.values())[1:]:
                 consequence_heights.append(len(csq)) # The number of genes in this consequence (because annotations are collapsed in these consequences)
             index = ConsequenceDrilldown._get_midpoint_index(consequence_heights)
-            return (consequences.keys()[:index],
-                    consequences.keys()[index:])
+            return (list(consequences.keys())[:index],
+                    list(consequences.keys())[index:])
 
     @staticmethod
     def _get_midpoint_index(lst):
