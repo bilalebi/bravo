@@ -187,11 +187,11 @@ def _get_hgvs(annotation):
     return ''
 
 POP_AFS_PROJECT = {
-    "gnomAD_AF_AFR": "African Ancestries",
-    "gnomAD_AF_EAS": "East Asian Ancestries",
-    "gnomAD_AF_NFE": "European (non-Finnish)",
-    "gnomAD_AF_SAS": "South Asian Ancestries",
-    "gnomAD_AF_ALL": "All ancestries",
+    "DemoStudy_AF_afr": "African Ancestries",
+    "DemoStudy_AF_eas": "East Asian Ancestries",
+    "DemoStudy_AF_nfe": "European (non-Finnish)",
+    "DemoStudy_AF_sas": "South Asian Ancestries",
+    "DemoStudy_AF_ALL": "All ancestries",
 }
 def get_pop_afs(variant):
     """
